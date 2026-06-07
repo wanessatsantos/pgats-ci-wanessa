@@ -1,0 +1,33 @@
+name: Pipeline de E2E com SonarCloud
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarcloud:
+    name: Rodar E2E e Enviar para o Sonar
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Baixar o meu código com histórico completo
+      - name: Checkout do código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. Instalaras dependências
+      - name: Instalar dependências
+        run: npm ci
+
+      # 3. Rodar os testes de E2E
+      - name: Executar Testes E2E
+        run: yarn run e2e
+
+      # 4. Enviar tudo para o SonarCloud analisar
+      - name: Análise do SonarCloud
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    
