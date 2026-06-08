@@ -11,21 +11,28 @@ jobs:
     name: Rodar E2E e Enviar para o Sonar
     runs-on: ubuntu-latest
     steps:
-      # 1. Baixar o meu código com histórico completo
+      #Baixar o meu código com histórico completo
       - name: Checkout do código
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+        #instalção do node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
 
-      # 2. Instalaras dependências
+      # Instalação do Yarn
+      - name: Instalando Yarn
+        run: npm install -g yarn
+      # Instalaras dependências
       - name: Instalar dependências
         run: yarn
 
-      # 3. Rodar os testes de E2E
+      # Rodar os testes de E2E
       - name: Executar Testes E2E
         run: yarn run e2e
 
-      # 4. Enviar tudo para o SonarCloud analisar
+      # Enviar tudo para o SonarCloud analisar
       - name: Análise do SonarCloud
         uses: SonarSource/sonarcloud-github-action@master
         env:
