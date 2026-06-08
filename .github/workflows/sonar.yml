@@ -38,7 +38,13 @@ jobs:
 
       # Enviar tudo para o SonarCloud analisar
       - name: Análise do SonarCloud
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          # Adicionamos esses parâmetros direto aqui para não ter erro de configuração
+          args: >
+            -Dsonar.organization=wanessatsantos
+            -Dsonar.projectKey=wanessatsantos_pgats-ci-wanessa
+            -Dsonar.sources=test
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info    
