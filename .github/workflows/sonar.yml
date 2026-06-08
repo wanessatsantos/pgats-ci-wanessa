@@ -19,7 +19,7 @@ jobs:
 
       # 2. Instalaras dependências
       - name: Instalar dependências
-        run: npm ci
+        run: yarn
 
       # 3. Rodar os testes de E2E
       - name: Executar Testes E2E
