@@ -28,6 +28,10 @@ jobs:
       - name: Instalar dependências
         run: yarn 
 
+    # instalação dos Browsers do Playwright
+      - name: Instalando Browsers do Playwright
+        run: yarn playwright install
+
       # Rodar os testes de E2E
       - name: Executar Testes E2E
         run: yarn run e2e
