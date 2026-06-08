@@ -26,7 +26,7 @@ jobs:
         run: npm install -g yarn
       # Instalaras dependências
       - name: Instalar dependências
-        run: yarn playwright install
+        run: yarn 
 
       # Rodar os testes de E2E
       - name: Executar Testes E2E
